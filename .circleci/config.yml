@@ -11,7 +11,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            aws cloudformation delete-stack 
+            aws cloudformation delete-stack \
             --stack-name "<<parameters.stackName>>"
 
   revert-migrations:
@@ -136,7 +136,7 @@ jobs:
       - run:
           name: install tar gip
           command: |
-            apt update && apt install tar gzip
+            yum install tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
