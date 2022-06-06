@@ -251,8 +251,8 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      - destroy-environment:
-          stackId: "${CIRCLE_WORKFLOW_ID:0:7}"     
+      # - destroy-environment:
+      #     stackId: "${CIRCLE_WORKFLOW_ID:0:7}"     
                     
   deploy-backend:
     docker:
@@ -277,6 +277,8 @@ jobs:
       - run:
           name: Install ansible
           command: |
+            rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm &&
+            yum -y update &&
             yum -y install epel-release &&
             yum repolist &&
             yum -y install ansible
@@ -298,8 +300,8 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - destroy-environment:
-          stackId: "${CIRCLE_WORKFLOW_ID:0:7}"  
+      # - destroy-environment:
+      #     stackId: "${CIRCLE_WORKFLOW_ID:0:7}"  
 
 #   smoke-test:
 #     docker:
