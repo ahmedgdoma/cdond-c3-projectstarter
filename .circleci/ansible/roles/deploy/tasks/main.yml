@@ -1,12 +1,11 @@
 - name: make backend dir
   become: true
   shell: |
-    cd &&
-    mkdir backend
+    mkdir /home/ubuntu/backend
 - name: "Unarchive files and move to ec2"
   unarchive:
     src: ~/project/artifact.tar.gz
-    dest: ~/backend/
+    dest: /home/ubuntu/backend
 - name: Install dependencies
   become: true
   shell: |
