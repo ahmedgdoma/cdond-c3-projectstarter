@@ -127,7 +127,6 @@ jobs:
             cd backend &&
             npm install &&
             npm audit fix --force &&
-            npm audit fix &&
             npm audit --audit-level=critical
 
   deploy-infrastructure:
@@ -192,7 +191,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.18.1
     steps:
       - checkout
       - restore_cache:
