@@ -229,10 +229,6 @@ jobs:
             wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
             tar xvf Python-3.8.12.tgz
       - run:
-          name: Install ansible
-          command: |
-            yum -y install ansible
-      - run:
           name: Install dependencies
           command: |
             curl -sL https://rpm.nodesource.com/setup_10.x | bash -
@@ -265,12 +261,13 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["37:55:4e:09:e5:d9:43:2e:3b:89:f9:1d:81:ab:83:90"] 
-      - attach_workspace:
-          at: ~/
       - run:
           name: install tar gzip
           command: |
             yum -y install tar gzip
+      - attach_workspace:
+          at: ~/
+      
       - run:
           name: install python
           command: |
@@ -280,6 +277,8 @@ jobs:
       - run:
           name: Install ansible
           command: |
+            yum -y install epel-release &&
+            yum repolist &&
             yum -y install ansible
       - run:
           name: Install dependencies
