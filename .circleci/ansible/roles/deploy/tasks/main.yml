@@ -20,7 +20,14 @@
     global: yes
     production: yes
     state: present
-- name: start erver
+- name: start server
+  become: yes
   shell: |
+    export TYPEORM_HOST="{{ lookup('env', 'TYPEORM_HOST') }}"
+    export TYPEORM_ENTITIES="{{ lookup('env', 'TYPEORM_ENTITIES') }}"
+    export TYPEORM_USERNAME="{{ lookup('env', 'TYPEORM_USERNAME') }}"
+    export TYPEORM_PASSWORD="{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+    export TYPEORM_DATABASE="{{ lookup('env', 'TYPEORM_DATABASE') }}"
+    cd /home/ubuntu/backend
     pm2 stop default
-    pm2 start npm -- start
+    pm2 start dist/main.js -f
