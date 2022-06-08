@@ -11,6 +11,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
+            aws s3 rm s3://udapeople-"<<parameters.stackId>>" --recursive &&
             aws cloudformation delete-stack \
             --stack-name "udapeople-backend-<<parameters.stackId>>" &&
             aws cloudformation delete-stack \
@@ -206,7 +207,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-            echo 'migrations_dump.txt content =>' &&
+            echo 'migrations_dump.txt content => ' &&
             cat ~/project/backend/migrations_dump.txt &&
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
