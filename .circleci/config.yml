@@ -215,6 +215,7 @@ jobs:
             echo "NODE_ENV=local" >> .env
             echo "VERSION=1" >> .env
             cat .env
+            npm install &&
             sudo npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
