@@ -319,7 +319,7 @@ jobs:
             echo "TYPEORM_USERNAME=${TYPEORM_USERNAME}" >> .env
             echo "NODE_ENV=local" >> .env
             echo "VERSION=1" >> .env
-            cat .env
+            cat .env &&
             npm i
             npm run build
             cd ..
