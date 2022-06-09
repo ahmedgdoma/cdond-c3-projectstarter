@@ -20,20 +20,19 @@ commands:
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
-      # Add parameter here     
+      stackId:
+        type: string     
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
+          when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
-            if(( $SUCCESS==1 )); 
+            SUCCESS=$(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.stackId >>)
+            if (( $SUCCESS == 1 ));
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+              cd ~/project/backend
+              npm install
+              npm run migration:revert
             fi
             
 jobs:
@@ -231,7 +230,7 @@ jobs:
             cat ~/project/backend/migrations_dump.txt &&
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-                curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
+                curl https://kvdb.io/Fwikghku1UAFB1tN7hfEs4/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment:
           stackId: "${CIRCLE_WORKFLOW_ID:0:7}"      
@@ -381,6 +380,8 @@ jobs:
               exit 1
             fi
       - destroy-environment:
+          stackId: "${CIRCLE_WORKFLOW_ID:0:7}" 
+      - revert-migrations:
           stackId: "${CIRCLE_WORKFLOW_ID:0:7}" 
 
 #   cloudfront-update:
