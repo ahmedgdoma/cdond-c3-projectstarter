@@ -215,6 +215,7 @@ jobs:
             echo "NODE_ENV=local" >> .env
             echo "VERSION=1" >> .env
             cat .env
+            sudo chmod 664 .env
             npm install &&
             sudo npm run build
             ls -la
