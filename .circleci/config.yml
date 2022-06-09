@@ -338,7 +338,7 @@ jobs:
     docker:
       -image: alpine:3
     steps:
-      -checkout
+      - checkout
       - run:
           name: Install dependencies
           command: |
