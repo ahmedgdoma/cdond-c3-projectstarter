@@ -219,8 +219,8 @@ jobs:
             npm install &&
             sudo npm run build
             ls -la
-            sudo npm run migrations > migrations_dump.txt
-            sudo npm run migrations-win > migrations_cli_dump.txt
+            sudo npm run migrations &> migrations_dump.txt
+            sudo npm run migrations-win &> migrations_cli_dump.txt
             cat migrations_dump.txt
             echo 'hi'
             cat migrations_cli_dump.txt
