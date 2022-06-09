@@ -220,7 +220,10 @@ jobs:
             sudo npm run build
             ls -la
             sudo npm run migrations > migrations_dump.txt
+            sudo npm run migrations-win > migrations_cli_dump.txt
             cat migrations_dump.txt
+            echo 'hi'
+            cat migrations_cli_dump.txt
       - run:
           name: Send migration results to memstash
           command: |
@@ -356,7 +359,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-          echo "hello-${BACKEND_IP}"
+            echo "hello-${BACKEND_IP}"
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
