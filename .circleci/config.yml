@@ -217,7 +217,8 @@ jobs:
             cat .env
             npm install &&
             sudo npm run build
-            sudo npm run migrations --verbose > migrations_dump.txt
+            ls -la
+            sudo npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
           name: Send migration results to memstash
@@ -350,6 +351,7 @@ jobs:
             export BACKEND_IP=$(aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text)
+            echo "${BACKEND_IP}"
       - run:
           name: Backend smoke test.
           command: |
