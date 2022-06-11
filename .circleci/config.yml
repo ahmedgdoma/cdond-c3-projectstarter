@@ -412,9 +412,12 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-            echo 'export OldWorkflowID=$(aws cloudformation \
+            # echo 'export OldWorkflowID=$(aws cloudformation \
+            # list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+            # --no-paginate --output text)' >> $BASH_ENV
+            export OldWorkflowID=$(aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-            --no-paginate --output text)' >> $BASH_ENV
+            --no-paginate --output text)
             echo OldWorkflowID: "${OldWorkflowID}"
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
