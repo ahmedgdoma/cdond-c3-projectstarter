@@ -403,7 +403,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/oldStackId.txt 
+            - oldStackId.txt 
 
   cloudfront-update:
     docker:
@@ -437,8 +437,8 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-            echo 'export OldWorkflowID=$(cat project/oldStackId.txt)' >> $BASH_ENV
-            echo OldWorkflowID: "$(cat project/oldStackId.txt)"
+            echo 'export OldWorkflowID=$(cat ~/oldStackId.txt)' >> $BASH_ENV
+            echo OldWorkflowID: "$(cat ~/oldStackId.txt)"
             echo OldWorkflowID2: "${OldWorkflowID2}"
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
