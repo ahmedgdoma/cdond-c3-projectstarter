@@ -437,7 +437,7 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-            echo 'export OldWorkflowID=$(cat project/oldStackId.txt)' >> $BASH_ENV
+            echo 'export OldWorkflowID=$(cat ~/project/oldStackId.txt)' >> $BASH_ENV
             echo 'export OldWorkflowID2=$(cat oldStackId.txt)' >> $BASH_ENV
             echo OldWorkflowID: "${OldWorkflowID}"
             echo OldWorkflowID2: "${OldWorkflowID2}"
