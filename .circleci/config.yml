@@ -192,7 +192,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:14.18.1
+      - image: cimg/node:18.3.0
     steps:
       - checkout
       - restore_cache:
@@ -213,16 +213,9 @@ jobs:
             echo "TYPEORM_USERNAME=${TYPEORM_USERNAME}" >> .env
             echo "NODE_ENV=local" >> .env
             echo "VERSION=1" >> .env
-            cat .env
-            sudo chmod 664 .env
             npm install &&
-            sudo npm run build
-            ls -la
             sudo npm run migrations &> migrations_dump.txt
-            sudo npm run migrations-win &> migrations_cli_dump.txt
             cat migrations_dump.txt
-            echo 'hi'
-            cat migrations_cli_dump.txt
       - run:
           name: Send migration results to memstash
           command: |
