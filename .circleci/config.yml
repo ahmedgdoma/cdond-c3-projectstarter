@@ -399,11 +399,12 @@ jobs:
             touch oldStackId.txt
             aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-            --no-paginate --output text >> oldStackId.txt
+            --no-paginate --output text >> ~/project/oldStackId.txt
+            cat ~/project/oldStackId.txt
       - persist_to_workspace:
-          root: ~/project
+          root: ~/
           paths:
-            - oldStackId.txt 
+            - project/oldStackId.txt 
 
   cloudfront-update:
     docker:
@@ -437,6 +438,7 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
+            ls -la
             echo 'export OldWorkflowID=$(cat ~/project/oldStackId.txt)' >> $BASH_ENV
             echo OldWorkflowID: "$(cat ~/project/oldStackId.txt)"
             echo OldWorkflowID2: "${OldWorkflowID2}"
