@@ -392,6 +392,7 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
+            pwd
             touch files/oldStackId.txt
             aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
