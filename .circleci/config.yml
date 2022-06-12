@@ -392,7 +392,7 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-            touch .circleci/files/oldStackId.txt
+            touch files/oldStackId.txt
             aws cloudformation \
             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
             --no-paginate --output text >> .circleci/files/oldStackId.txt
