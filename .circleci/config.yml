@@ -390,6 +390,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - run:
+          name: install tar gip
+          command: |
+            yum -y install tar gzip
+      - run:
           name: Get old stack workflow id
           command: |
             touch oldStackId.txt
@@ -424,6 +428,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run:
+          name: install tar gip
+          command: |
+            yum -y install tar gzip
       - attach_workspace:
           at: ~/
       - run:
