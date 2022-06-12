@@ -385,7 +385,7 @@ jobs:
           stackId: "${CIRCLE_WORKFLOW_ID:0:7}" 
       - revert-migrations:
           stackId: "${CIRCLE_WORKFLOW_ID:0:7}"
-  get_old_stack_id
+  get_old_stack_id:
     docker:
       - image: amazon/aws-cli
     steps:
@@ -477,5 +477,6 @@ workflows:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
           requires: [smoke-test]
+      - get_old_stack_id
       - cleanup:
-          requires: [cloudfront-update]
+          requires: [cloudfront-update, get_old_stack_id]
